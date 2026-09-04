@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário COHAB</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            font-size: 12px;
+            color: #000;
+        }
+        h1 { 
+            text-align: center; 
+            font-size: 16px; 
+            margin-bottom: 20px; 
+        }
+        .section-title { 
+            background-color: #d9d9d9; 
+            font-weight: bold; 
+            padding: 5px; 
+            margin-top: 20px; 
+            border: 1px solid #000; 
+            text-align: center; 
+            font-size: 13px;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 10px; 
+        }
+        td { 
+            border: 1px solid #000; 
+            padding: 5px; 
+            vertical-align: top;
+        }
+        .label { 
+            font-weight: bold; 
+            font-size: 10px; 
+            color: #333;
+            width: 1%;
+            white-space: nowrap;
+            background-color: #f2f2f2;
+        }
+        .value { 
+            width: auto; 
+            text-transform: uppercase; 
+            font-size: 11px;
+            white-space: pre-wrap; /* Permite empilhar contratos e datas */
+        }
+        .flex-row { 
+            display: flex; 
+        }
+        .flex-col { 
+            flex: 1; 
+            border-right: 1px solid #000; 
+            padding-right: 5px; 
+        }
+        .flex-col:last-child { 
+            border-right: none; 
+            padding-right: 0; 
+        }
+        .relato-texto { 
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: justify; 
+            text-transform: none; 
+            line-height: 1.5; 
+            font-size: 12px;
+            white-space: pre-wrap; /* Permite parágrafos no Breve Relato */
+        }
+        .aprovado {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #008000;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+        .assinatura {
+            margin-top: 40px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .assinatura div {
+            border-top: 1px solid #000;
+            width: 300px;
+            text-align: center;
+            padding-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section-title">APRESENTAÇÃO</div>
+    <table>
+        <tr>
+            <td class="label">01 - DATA</td><td class="value">{{data_apresentacao_1}}</td>
+            <td class="label">02 - DATA</td><td class="value">{{data_apresentacao_2}}</td>
+            <td class="label">03 - DATA</td><td class="value">{{data_apresentacao_3}}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">DADOS DO CONTRATO ORIGINÁRIO</div>
+    <table>
+        <tr>
+            <td class="label">NÚMERO</td><td class="value">{{numero_contrato}}</td>
+            <td class="label">TIPO</td><td class="value">{{tipo_contrato}}</td>
+            <td class="label">DATA</td><td class="value">{{data_contrato}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td class="label">NÚMERO DO CONTRATO</td><td class="value">{{numero_contrato_completo}}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">RELAÇÃO JURÍDICA COMPRADOR(A)</div>
+    <table>
+        <tr>
+            <td class="label">NOME COMPLETO</td><td class="value" colspan="3">{{nome_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">NACIONALIDADE</td><td class="value">{{nac_adquirente}}</td>
+            <td class="label">NASCIMENTO</td><td class="value">{{nasc_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">PROFISSÃO</td><td class="value" colspan="3">{{prof_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">CPF</td><td class="value" colspan="3">{{cpf_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">DOC. IDENT.</td><td class="value" colspan="3">{{doc_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">ESTADO CIVIL</td><td class="value" colspan="3">{{est_civil_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">CÔNJ/COMP.</td><td class="value" colspan="3">{{nome_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">REG. CASAM.</td><td class="value" colspan="3">{{regime_casamento}}</td>
+        </tr>
+        <tr>
+            <td class="label">E-MAIL</td><td class="value" style="text-transform: lowercase;" colspan="3">{{email_adquirente}}</td>
+        </tr>
+        <tr>
+            <td class="label">TELEFONE</td><td class="value" colspan="3">{{telefone_adquirente}}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">IMÓVEL</div>
+    <table>
+        <tr>
+            <td class="label">CAS/APT/LT</td><td class="value" colspan="3">{{tipo_imovel}}</td>
+        </tr>
+        <tr>
+            <td class="label">ENDEREÇO</td><td class="value" colspan="3">{{endereco_imovel}}</td>
+        </tr>
+        <tr>
+            <td class="label">CONJ. HAB.</td><td class="value">{{conjunto_hab}}</td>
+            <td class="label">CEP</td><td class="value">{{cep_imovel}}</td>
+        </tr>
+        <tr>
+            <td class="label">LOTE</td><td class="value">{{lote}}</td>
+            <td class="label">QUADRA</td><td class="value">{{quadra}}</td>
+        </tr>
+        <tr>
+            <td class="label">BAIRRO</td><td class="value" colspan="3">{{bairro}}</td>
+        </tr>
+        <tr>
+            <td class="label">CIDADE/UF</td><td class="value" colspan="3">{{cidade_uf}}</td>
+        </tr>
+        <tr>
+            <td class="label">PREÇO</td><td class="value" colspan="3">{{preco_imovel}}</td>
+        </tr>
+        <tr>
+            <td class="label">ÍNDICE CADASTRAL</td><td class="value" colspan="3">{{indice_cadastral}}</td>
+        </tr>
+        <tr>
+            <td class="label">REGISTRO</td>
+            <td class="value" colspan="3">MATRÍCULA {{matricula}}, LIVRO {{livro}}</td>
+        </tr>
+        <tr>
+            <td class="label">CARTÓRIO</td><td class="value" colspan="3">{{cartorio}}</td>
+        </tr>
+        <tr>
+            <td class="label" style="white-space: normal; width: 30%;">NÚMERO DE ARQUIVOS (PÁGINAS) DISPONIBILIZADOS – CEDOC</td>
+            <td class="value" colspan="3">{{num_arquivos}}</td>
+        </tr>
+        <tr>
+            <td class="label">ALTERAÇÕES/ OBSERVAÇÕES:</td>
+            <td class="value" colspan="3" style="text-transform: none;">{{observacoes_contrato}}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">DADOS DO CÔNJUGE/COMPANHEIRO(A)</div>
+    <table>
+        <tr>
+            <td class="label">RELAÇÃO JURÍDICA</td><td class="value" colspan="3">{{papel_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">NOME COMPLETO</td><td class="value" colspan="3">{{nome_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">NACIONALIDADE</td><td class="value">{{nac_conjuge}}</td>
+            <td class="label">NASCIMENTO</td><td class="value">{{nasc_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">PROFISSÃO</td><td class="value" colspan="3">{{prof_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">CPF</td><td class="value" colspan="3">{{cpf_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">DOC. IDENT.</td><td class="value" colspan="3">{{doc_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">ESTADO CIVIL</td><td class="value" colspan="3">{{est_civil_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">E-MAIL</td><td class="value" style="text-transform: lowercase;" colspan="3">{{email_conjuge}}</td>
+        </tr>
+        <tr>
+            <td class="label">TELEFONE</td><td class="value" colspan="3">{{telefone_conjuge}}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">BREVE RELATO - ANÁLISE DA DOCUMENTAÇÃO DISPONIBILIZADA</div>
+    <div class="relato-texto">
+        <strong>DATA:</strong> {{data_relato}}
+
+        <div class="aprovado">APROVADO</div>
+{{breve_relato}}
+    </div>
+
+    <div class="assinatura">
+        <div>ANALISTA: {{nome_analista}}</div>
+    </div>
+
+</body>
+</html>

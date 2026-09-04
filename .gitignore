@@ -1,0 +1,11 @@
+node_modules
+.env
+
+# Pastas de dados e saída
+pdfs/
+output/
+temp/
+logs/
+
+# Arquivos de testes locais individuais
+testLocal.js

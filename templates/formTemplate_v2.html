@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório Jurídico Executivo - COHAB / AGS Brasil</title>
+    <style>
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            font-size: 9pt; 
+            color: #1e293b; 
+            margin: 0; 
+            padding: 10px; 
+            line-height: 1.3;
+        }
+
+        .header { text-align: center; margin-bottom: 10px; }
+        
+        .main-title { 
+            background-color: #002b5e; 
+            color: #ffffff; 
+            padding: 6px; 
+            font-size: 10pt; 
+            font-weight: bold; 
+            text-align: center;
+            text-transform: uppercase; 
+        }
+        
+        .doc-subtitle { text-align: center; margin: 8px 0; }
+        .doc-subtitle h2 { font-size: 12pt; margin: 0; color: #002b5e; text-transform: uppercase; }
+        .doc-subtitle h3 { font-size: 9pt; margin: 2px 0 0 0; font-weight: bold; color: #4a5568; }
+
+        .section-title { 
+            background-color: #002b5e;
+            color: #ffffff;
+            font-weight: bold; 
+            font-size: 9.5pt; 
+            margin-top: 12px; 
+            margin-bottom: 4px; 
+            padding: 4px 6px; 
+            text-transform: uppercase; 
+        }
+
+        .subsection-title { 
+            font-weight: bold; 
+            font-size: 9pt; 
+            margin-top: 8px; 
+            margin-bottom: 4px; 
+            color: #002b5e; 
+            background-color: #e2e8f0; 
+            padding: 3px 5px; 
+            border-left: 3px solid #002b5e;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+        th, td { 
+            border: 1px solid #cbd5e1; 
+            padding: 4px 5px; 
+            text-align: left; 
+            vertical-align: middle; 
+            font-size: 8.5pt; 
+        }
+        th { background-color: #f1f5f9; font-weight: bold; color: #334155; }
+
+        .vencido-alert { color: #dc2626; font-weight: bold; font-size: 8pt; margin-top: 2px; display: block;}
+        .warning { color: #dc2626; font-weight: bold; }
+        
+        .info-box { border: 1px solid #cbd5e1; background-color: #f8fafc; padding: 7px; margin: 8px 0; font-size: 8.5pt; }
+        .info-box ul { margin: 0; padding-left: 16px; list-style-type: disc; }
+        .info-box li { border: none; background: none; padding: 1px 0; margin: 0; }
+
+        .parecer-content {
+            padding: 8px 2px;
+            margin-top: 6px;
+            font-size: 9pt;
+            line-height: 1.55;
+            color: #1e293b;
+        }
+        .parecer-content b {
+            display: block;
+            color: #002b5e;
+            font-size: 9.5pt;
+            margin-top: 14px;
+            margin-bottom: 4px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .parecer-content b:first-child { margin-top: 0; }
+        .parecer-content ul {
+            margin: 4px 0 10px 0;
+            padding-left: 18px;
+            list-style-type: disc;
+        }
+        .parecer-content li { padding: 1px 0; }
+
+        .status-box { 
+            font-size: 11pt; 
+            font-weight: bold; 
+            text-align: center; 
+            padding: 8px; 
+            border: 2px solid #002b5e; 
+            background-color: #f0f9ff;
+            margin: 8px 0; 
+            color: #002b5e; 
+            text-transform: uppercase;
+        }
+
+        .footer { text-align: right; margin-top: 20px; font-weight: bold; color: #4a5568; font-size: 8.5pt; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-box">
+            <img src="{{logo}}" alt="AGS Brasil" height="50" style="height: 50px; max-height: 50px;">
+        </div>
+        <div class="main-title">
+            PIPELINE DE INTELIGÊNCIA ARTIFICIAL — AUDITORIA DE REGULARIZAÇÃO FUNDIÁRIA
+        </div>
+    </div>
+
+    <div class="doc-subtitle">
+        <h2>Relatório Jurídico de Análise Documental</h2>
+        <h3>MODELO EXECUTIVO — COHAB-MG</h3>
+    </div>
+
+    <!-- 1. DADOS GERAIS -->
+    <div class="section-title">1. DADOS GERAIS</div>
+    <table>
+        <tr>
+            <th style="width: 20%;">Nº Único do Imóvel</th>
+            <td style="width: 30%;" colspan="3">{{dados_gerais.numero_unico_imovel}}</td>
+        </tr>
+        <tr>
+            <th style="width: 20%;">Contrato</th>
+            <td style="width: 30%; font-weight: bold; color: #002b5e;">{{dados_gerais.contrato}}</td>
+            <th style="width: 20%;">Mutuário</th>
+            <td style="width: 30%;"><b>{{dados_gerais.mutuario}}</b><br><i>(Promitente comprador originário)</i></td>
+        </tr>
+        {{?dados_gerais.cessionario}}
+        <tr>
+            <th>Cessionário(s):</th>
+            <td colspan="3"><b>{{dados_gerais.cessionario}}</b></td>
+        </tr>
+        {{/dados_gerais.cessionario}}
+        <tr>
+            <th>Município</th>
+            <td>{{dados_gerais.municipio}}</td>
+            <th>Matrícula</th>
+            <td>{{dados_gerais.matricula}}</td>
+        </tr>
+        <tr>
+            <th>Responsável</th>
+            <td>{{dados_gerais.responsavel}}</td>
+            <th>Data de Análise</th>
+            <td>
+                {{#dados_gerais.historico_analises}}
+                {{data}}
+                {{/dados_gerais.historico_analises}}
+            </td>
+        </tr>
+        <tr>
+            <th>Situação</th>
+            <td colspan="3"><b>{{dados_gerais.situacao}}</b></td>
+        </tr>
+        <tr>
+            <th>Próxima etapa</th>
+            <td colspan="3">{{dados_gerais.proxima_etapa}}</td>
+        </tr>
+    </table>
+
+    <!-- 2. CHECKLIST DOCUMENTAL -->
+    <div class="section-title">2. CHECKLIST DOCUMENTAL</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 30%">Documento</th>
+                <th style="width: 12%; text-align:center;">Recebido</th>
+                <th style="width: 12%; text-align:center;">Válido</th>
+                <th style="width: 12%; text-align:center;">IA Analisou</th>
+                <th style="width: 34%">Observações (Prazos/Validades/Titularidade)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#checklist}}
+            <tr>
+                <td><b>{{documento}}</b></td>
+                <td style="text-align:center;">{{recebido}}</td>
+                <td style="text-align:center; font-weight: bold;">{{valido}}</td>
+                <td style="text-align:center;">{{ia_analisou}}</td>
+                <td>{{obs}}</td>
+            </tr>
+            {{/checklist}}
+        </tbody>
+    </table>
+
+    <!-- 3. DADOS EXTRAÍDOS -->
+    <div class="section-title">3. DADOS EXTRAÍDOS DOS DOCUMENTOS</div>
+    
+    <div class="subsection-title">Contrato e Partes Envolvidas</div>
+    <table>
+        <tr>
+            <th style="width: 20%;">Número Contrato:</th>
+            <td style="width: 30%; font-weight: bold;">{{contrato.numero}}</td>
+            <th style="width: 20%;">Data:</th>
+            <td style="width: 30%;">{{contrato.data}}</td>
+        </tr>
+        <tr>
+            <th>Vendedor:</th>
+            <td>{{contrato.vendedor}}</td>
+            <th>Comprador Originário:</th>
+            <td><b>{{contrato.comprador}}</b></td>
+        </tr>
+    </table>
+
+    <div class="subsection-title">Partes Envolvidas - Mutuário e Cessionários</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 33%">Mutuário / Promitente comprador originário</th>
+                <th style="width: 33%">Estado Civil Atual</th>
+                <th style="width: 34%">Qualificação Completa do Cônjuge</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#partes}}
+            <tr>
+                <td><b>{{mutuario}}</b><br>CPF: {{cpf}}<br>RG: {{tipo_documento}} {{identidade}} ({{orgao}})<br>Data de Emissão: {{data_exp}}<br>Profissão: {{profissao}}</td>
+                <td>{{estado_civil}}</td>
+                <td>Nome: {{conjuge}}<br>CPF: {{conjuge_cpf}}<br>RG: {{conjuge_identidade}}<br>Nacionalidade: {{conjuge_nacionalidade}}<br>Profissão: {{conjuge_profissao}}</td>
+            </tr>
+            {{/partes}}
+        </tbody>
+    </table>
+
+    {{?cessionarios}}
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 33%">Cessionário / Adquirente final</th>
+                <th style="width: 33%">Estado Civil Atual</th>
+                <th style="width: 34%">Qualificação Completa do Cônjuge</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#cessionarios}}
+            <tr>
+                <td><b>{{nome}}</b><br>CPF: {{cpf}}<br>RG: {{tipo_documento}} {{identidade}} ({{orgao}})<br>Data de Emissão: {{data_exp}}<br>Nacionalidade: {{nacionalidade}}<br>Profissão: {{profissao}}</td>
+                <td>{{estado_civil}}<br>União Estável: {{uniao_estavel}}</td>
+                <td>Nome: {{conjuge}}<br>CPF: {{conjuge_cpf}}<br>RG: {{conjuge_identidade}}<br>Nacionalidade: {{conjuge_nacionalidade}}<br>Profissão: {{conjuge_profissao}}</td>
+            </tr>
+            {{/cessionarios}}
+        </tbody>
+    </table>
+    {{/cessionarios}}
+
+    <div class="subsection-title">Requerente, Endereço e Certidões Civis (Validade Legal: 90 dias)</div>
+    {{#requerentes}}
+    <table>
+        <tr>
+            <th style="width: 20%;">Requerente:</th>
+            <td style="width: 30%;"><b>{{nome}}</b><br>CPF: {{cpf}}</td>
+            <th style="width: 20%;">RG / Identidade:</th>
+            <td style="width: 30%;">{{identidade}} ({{orgao}})</td>
+        </tr>
+        <tr>
+            <th>Data Expedição:</th>
+            <td>{{data_exp}}</td>
+            <th>Comprovante Endereço:</th>
+            <td>{{comprovante}} | Emissão: {{data_emissao_end}}</td>
+        </tr>
+        <tr>
+            <th>Endereço:</th>
+            <td colspan="3">{{rua}}, {{num}}{{comp}} — {{bairro}}, {{cidade}} — CEP: {{cep}}</td>
+        </tr>
+        <tr><th colspan="4" style="background-color: #f8fafc; text-align: center; color: #002b5e;">REGISTROS CIVIS (NASCIMENTO / CASAMENTO / ÓBITO / UNIÃO ESTÁVEL)</th></tr>
+        <tr><th colspan="4" style="background-color: #eef2f7;">Nascimento</th></tr>
+        <tr>
+            <th>Nome:</th>
+            <td colspan="3">{{nasc_nome}}</td>
+        </tr>
+        <tr>
+            <th>Data de Nascimento:</th>
+            <td>{{nasc_data}}</td>
+            <th>Local:</th>
+            <td>{{nasc_local}}</td>
+        </tr>
+        <tr>
+            <th>Matrícula:</th>
+            <td>{{nasc_matricula}}</td>
+            <th>Cartório / Emissão:</th>
+            <td>{{nasc_cartorio}} | {{nasc_emissao}}</td>
+        </tr>
+        <tr><th colspan="4" style="background-color: #eef2f7;">Casamento</th></tr>
+        <tr>
+            <th>Partes:</th>
+            <td colspan="3">{{casamento_nomes}}</td>
+        </tr>
+        <tr>
+            <th>Data de Celebração:</th>
+            <td>{{cas_celebracao}}</td>
+            <th>Data de Registro:</th>
+            <td>{{cas_registro}}</td>
+        </tr>
+        <tr>
+            <th>Regime de Bens:</th>
+            <td>{{cas_regime}}</td>
+            <th>Matrícula:</th>
+            <td>{{cas_matricula}}</td>
+        </tr>
+        <tr>
+            <th>Livro / Folha:</th>
+            <td>{{cas_livro}} / {{cas_folha}}</td>
+            <th>Cartório:</th>
+            <td>{{cas_cartorio}}</td>
+        </tr>
+        <tr><th colspan="4" style="background-color: #eef2f7;">União Estável</th></tr>
+        <tr>
+            <th>Companheiros:</th>
+            <td colspan="3">{{uniao_comp1}} e {{uniao_comp2}}</td>
+        </tr>
+        <tr>
+            <th>Cartório:</th>
+            <td>{{uniao_cartorio}}</td>
+            <th>Data de Lavratura:</th>
+            <td>{{uniao_lavratura}}</td>
+        </tr>
+        <tr>
+            <th>Regime de Bens:</th>
+            <td colspan="3">{{uniao_regime}}</td>
+        </tr>
+        <tr><th colspan="4" style="background-color: #eef2f7;">Divórcio / Averbações</th></tr>
+        <tr>
+            <th>Averbações:</th>
+            <td colspan="3">{{cas_averbacoes}}</td>
+        </tr>
+        <tr>
+            <th>Data da Sentença:</th>
+            <td>{{divorcio_sentenca}}</td>
+            <th>Tipo:</th>
+            <td>Consensual: {{div_consensual}} | Litigioso: {{div_litigioso}}</td>
+        </tr>
+        <tr><th colspan="4" style="background-color: #eef2f7;">Óbito</th></tr>
+        <tr>
+            <th>Data:</th>
+            <td>{{obito_data}}</td>
+            <th>Nome:</th>
+            <td>{{obito_nome}}</td>
+        </tr>
+        <tr>
+            <th>Evolução do Nome:</th>
+            <td colspan="3">Cônjuge 1: {{cas_1_solt}} ➔ {{cas_1_cas}}<br>Cônjuge 2: {{cas_2_solt}} ➔ {{cas_2_cas}}</td>
+        </tr>
+    </table>
+    {{/requerentes}}
+
+    <div class="subsection-title">Registro do Imóvel (Matrícula) (Validade Legal: 30 dias)</div>
+    <table>
+        <tr>
+            <th style="width: 20%;">Cartório / Matrícula:</th>
+            <td style="width: 30%;">{{registro.cartorio}} | <b>{{registro.matricula}}</b></td>
+            <th style="width: 20%;">CNM:</th>
+            <td style="width: 30%;">{{registro.cnm}}</td>
+        </tr>
+        <tr>
+            <th>Certidão / Emissão:</th>
+            <td>{{registro.tipo}} | {{registro.data_emissao}}</td>
+            <th>Tipo do Imóvel:</th>
+            <td>{{registro.tipo_imovel}}</td>
+        </tr>
+        <tr>
+            <th>Endereço:</th>
+            <td colspan="3">{{registro.rua}}, {{registro.num}} ({{registro.bairro}})</td>
+        </tr>
+        <tr>
+            <th>Alt. Cadastral:</th>
+            <td colspan="3">{{registro.alt_logradouro}}</td>
+        </tr>
+        <tr>
+            <th>Lote / Quadra / Área:</th>
+            <td colspan="3">Lote: {{registro.lote}}, Quadra: {{registro.quadra}} | Unidade: {{registro.tipo_unidade}} | Área da Unidade: {{registro.area_unidade}} | Área Total do Imóvel: {{registro.area_gleba}}</td>
+        </tr>
+        <tr>
+            <th>Limites e Confrontações:</th>
+            <td colspan="3">Frente: {{registro.limites_confrontacoes.frente}}, Direita: {{registro.limites_confrontacoes.direita}}, Esquerda: {{registro.limites_confrontacoes.esquerda}}, Fundos: {{registro.limites_confrontacoes.fundos}}</td>
+        </tr>
+        <tr>
+            <th>Baixa Hipoteca / Const.:</th>
+            <td>{{registro.baixa_hipoteca}}</td>
+            <th>Ônus / Ações Reais:</th>
+            <td>{{registro.onus}} | {{registro.acoes}}</td>
+        </tr>
+    </table>
+
+    <div class="subsection-title">Procuração e Substabelecimento (Validade Legal: 90 dias)</div>
+    <table>
+        <tr><th colspan="4" style="background-color: #f8fafc; text-align: center; color: #002b5e;">PROCURAÇÃO PÚBLICA</th></tr>
+        <tr>
+            <th style="width: 20%;">Outorgante ➔ Outorgado:</th>
+            <td colspan="3">{{procuracao.outorgantes}} ➔ <b>{{procuracao.outorgados}}</b></td>
+        </tr>
+        <tr>
+            <th>Cartório / Livro / Folha:</th>
+            <td colspan="3">{{procuracao.cartorio}} | Livro: {{procuracao.livro}} | Folhas: {{procuracao.folhas}}</td>
+        </tr>
+        <tr>
+            <th>Data de Emissão:</th>
+            <td>{{procuracao.data_lavratura}}</td>
+            <th>Validade / Situação:</th>
+            <td style="color: #dc2626; font-weight: bold;">{{procuracao.status_validade}}</td>
+        </tr>
+        <tr>
+            <th>Poderes Específicos:</th>
+            <td colspan="3">Irrevogável: {{procuracao.poder_irrevogavel}} | Irretratável: {{procuracao.poder_irretratavel}}</td>
+        </tr>
+        
+        <tr><th colspan="4" style="background-color: #f8fafc; text-align: center; color: #002b5e;">SUBSTABELECIMENTO</th></tr>
+        <tr>
+            <th>Outorgante ➔ Outorgado:</th>
+            <td colspan="3">{{substabelecimento.outorgantes}} ➔ <b>{{substabelecimento.outorgados}}</b></td>
+        </tr>
+        <tr>
+            <th>Cartório / Livro / Folha:</th>
+            <td colspan="3">{{substabelecimento.cartorio}} | Livro: {{substabelecimento.livro}} | Folhas: {{substabelecimento.folhas}}</td>
+        </tr>
+        <tr>
+            <th>Data de Emissão:</th>
+            <td>{{substabelecimento.data_lavratura}}</td>
+            <th>Validade / Situação:</th>
+            <td style="color: #dc2626; font-weight: bold;">{{substabelecimento.status_validade}}</td>
+        </tr>
+        <tr>
+            <th>Poderes Específicos:</th>
+            <td colspan="3">{{substabelecimento.poderes}}</td>
+        </tr>
+        <tr>
+            <th>Procuração Anterior:</th>
+            <td colspan="3">{{substabelecimento.proc_anterior_cartorio}} | Livro: {{substabelecimento.proc_anterior_livro}} | Folhas: {{substabelecimento.proc_anterior_folhas}} | Data: {{substabelecimento.proc_anterior_data}}</td>
+        </tr>
+    </table>
+
+    <div class="subsection-title">Certidões Negativas (CNDs) e IPTU</div>
+    <table>
+        <tr>
+            <th style="width: 20%;">Inscrição / Emissão IPTU:</th>
+            <td style="width: 30%;">{{iptu.inscricao_cadastral}} | {{iptu.data_emissao}}</td>
+            <th style="width: 20%;">Área / Endereço IPTU:</th>
+            <td style="width: 30%;">{{iptu.area_construida}} | {{iptu.logradouro}}, {{iptu.numero}}</td>
+        </tr>
+        <tr>
+            <th>CND Municipal:</th>
+            <td>{{cnd.status}} | {{cnd.data_emissao}}</td>
+            <th>CND TJMG (Ações Cíveis):</th>
+            <td>{{cnd_tjmg.status}} | {{cnd_tjmg.data_emissao}}</td>
+        </tr>
+    </table>
+
+    <!-- 4. CRUZAMENTO AUTOMÁTICO -->
+    <div class="section-title">4. CRUZAMENTO AUTOMÁTICO DAS INFORMAÇÕES</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%">Campo</th>
+                <th style="width: 18%">Contrato</th>
+                <th style="width: 18%">Matrícula</th>
+                <th style="width: 18%">IPTU</th>
+                <th style="width: 16%">Resultado IA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#cruzamento}}
+            <tr>
+                <td><b>{{campo}}</b></td>
+                <td>{{contrato}}</td>
+                <td>{{matricula}}</td>
+                <td>{{iptu}}</td>
+                <td style="font-weight: bold;">{{resultado}}</td>
+            </tr>
+            {{/cruzamento}}
+        </tbody>
+    </table>
+
+    <!-- 5. ANÁLISE INDIVIDUAL -->
+    <div class="section-title">5. ANÁLISE INDIVIDUAL E DIVERGÊNCIAS</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 20%">Documento</th>
+                <th style="width: 40%">Observações</th>
+                <th style="width: 20%">Pendências</th>
+                <th style="width: 20%">Divergências</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#analise_ind}}
+            <tr>
+                <td><b>{{documento}}</b></td>
+                <td>{{obs}}</td>
+                <td class="warning">{{pendencias}}</td>
+                <td class="warning">{{divergencias}}</td>
+            </tr>
+            {{/analise_ind}}
+        </tbody>
+    </table>
+
+    <!-- 6. DOCUMENTOS FALTANTES -->
+    <div class="section-title">6. DOCUMENTOS FALTANTES</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%">Documento</th>
+                <th style="width: 15%; text-align: center;">Obrigatório</th>
+                <th style="width: 45%">Motivo Exigência Emissão</th>
+                <th style="width: 15%; text-align: center;">Impede Emissão?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#faltantes}}
+            <tr>
+                <td><b>{{doc}}</b></td>
+                <td style="text-align: center;">{{obrig}}</td>
+                <td>{{motivo}}</td>
+                <td style="text-align: center; color: #dc2626; font-weight: bold;">{{impede}}</td>
+            </tr>
+            {{/faltantes}}
+        </tbody>
+    </table>
+
+    <!-- 7. INCONSISTÊNCIAS -->
+    <div class="section-title">7. INCONSISTÊNCIAS ENCONTRADAS</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 20%">Documento</th>
+                <th style="width: 35%">Inconsistência Identificada</th>
+                <th style="width: 15%">Gravidade</th>
+                <th style="width: 30%">Impacto Jurídico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#inconsistencias}}
+            <tr>
+                <td><b>{{doc}}</b></td>
+                <td>{{inconsistencia}}</td>
+                <td><b>{{gravidade}}</b></td>
+                <td>{{impacto}}</td>
+            </tr>
+            {{/inconsistencias}}
+        </tbody>
+    </table>
+
+    <!-- 8. PARECER TÉCNICO -->
+    <div class="section-title">8. PARECER TÉCNICO DA IA</div>
+    <div class="status-box">STATUS FINAL: {{parecer.status}}</div>
+    <div class="parecer-content">{{parecer.fundamentacao}}</div>
+
+    <div class="footer">Setor Jurídico — AGS Brasil / Regularização Fundiária COHAB-MG</div>
+
+</body>
+</html>

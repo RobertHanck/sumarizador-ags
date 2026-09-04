@@ -1,0 +1,23 @@
+{
+    "name": "ags-ia",
+    "version": "1.0.7",
+    "description": "API para interpretação de arquivos PDF via IA, com contrato HTTP padronizado e provedores de IA plugáveis.",
+    "main": "server.js",
+    "scripts": {
+        "dev": "node server.js",
+        "server": "nodemon server.js",
+        "test:interpret-pdf": "node scripts/test-interpret-pdf.js"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "@google/genai": "^2.15.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "html-docx-js": "^0.3.1",
+        "multer": "^2.0.0",
+        "openai": "^4.68.4",
+        "undici": "^5.29.0",
+        "zod": "^3.25.76"
+    }
+}
